@@ -1,0 +1,49 @@
+# ====== 服务配置 ======
+server:
+  port: 8066
+  tomcat:
+    uri-encoding: UTF-8
+  servlet:
+    # 访问路径
+    context-path: /micro-b-server
+    # 字符编码
+    encoding:
+      force: true
+      charset: UTF-8
+      enabled: true
+
+# ====== 日志配置 ======
+logging:
+  level:
+    root: INFO
+    # 指定包日志级别
+    com.netflix: DEBUG
+    # Spring 日志
+    org.springframework.web: TRACE
+    #
+    okhttp3: TRACE
+    # 当前服务日志级别
+    org.cloudland.study.micro.b: DEBUG
+
+  file:
+    name: logs/micro-b-server.log
+
+# ====== 注册中心&配置中心 ======
+spring:
+  application:
+    name: micro-b-server
+  cloud:
+    nacos:
+      # 服务注册
+      discovery:
+        # 服務地址
+        server-addr: @nacos.server.addr@
+        # 命名空间
+        namespace: @nacos.server.namespace@
+        # 分组
+        group: @nacos.server.group@
+
+# ====== MyBatis 配置 ======
+mybatis:
+  mapper-locations: classpath*:org/cloudland/study/micro/b/server/dao/*Mapper.xml
+  type-aliases-package: org.cloudland.study.micro.b.server.dao

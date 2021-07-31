@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.cloudland.study</groupId>
+    <artifactId>seata-parent</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <!-- 配置文件地址，用于替换各差异环境的基本配置信息 -->
+    <profiles>
+        <profile>
+            <id>local</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <filters>
+                    <filter>../env-profile/local.properties</filter>
+                </filters>
+            </build>
+        </profile>
+        <profile>
+            <id>union</id>
+            <build>
+                <filters>
+                    <filter>../env-profile/union.properties</filter>
+                </filters>
+            </build>
+        </profile>
+        <profile>
+            <id>online</id>
+            <build>
+                <filters>
+                    <filter>../env-profile/online.properties</filter>
+                </filters>
+            </build>
+        </profile>
+    </profiles>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!-- compiler version  -->
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+
+        <!-- Spring Cloud & Spring Boot version -->
+        <spring.cloud.dependencies.version>Hoxton.SR9
+        </spring.cloud.dependencies.version><!-- Dalston.SR1/Edgware.RELEASE, Finchley.RELEASE -->
+        <spring.boot.dependencies.version>2.3.9.RELEASE</spring.boot.dependencies.version>
+        <!-- Alibaba Cloud version -->
+        <spring.cloud.alibaba.version>2.2.4.RELEASE</spring.cloud.alibaba.version>
+
+        <junit.version>4.12</junit.version>
+        <qos.logback.version>1.2.3</qos.logback.version>
+
+        <!-- JDBC version -->
+        <mysql.connector.java.version>5.1.21</mysql.connector.java.version><!-- 6.0.6 -->
+        <mybatis.spring.boot.version>1.3.0</mybatis.spring.boot.version>
+        <org.postgresql.version>42.2.20</org.postgresql.version>
+        <com.alibaba.druid.version>1.1.0</com.alibaba.druid.version>
+
+        <!-- Apache version -->
+        <apache.commons.lang3.version>3.12.0</apache.commons.lang3.version>
+        <apache.commons.io.version>2.4</apache.commons.io.version>
+
+        <!-- WebService version -->
+        <org.apache.cxf.version>3.1.12</org.apache.cxf.version>
+
+        <!-- Lombok version -->
+        <org.projectlombok.lombok.version>1.18.2</org.projectlombok.lombok.version>
+
+        <!-- UserAgentUtils version -->
+        <en.bitwalker.user-agent.version>1.19</en.bitwalker.user-agent.version>
+
+        <!-- Swagger2 version -->
+        <io.springfox.swagger2.version>3.0.0</io.springfox.swagger2.version>
+
+        <!-- OkHttp version -->
+        <com.squareup.okhttp.version>4.9.0</com.squareup.okhttp.version>
+
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Spring Cloud & Spring Boot Begin -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring.cloud.dependencies.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring.boot.dependencies.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- Spring Cloud & Spring Boot End -->
+
+            <!-- Alibaba Cloud Begin  -->
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${spring.cloud.alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- Alibaba Cloud End -->
+
+            <!-- Junit Jar Begin -->
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <!-- Junit Jar End -->
+
+            <!-- Logback Begin -->
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-core</artifactId>
+                <version>${qos.logback.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${qos.logback.version}</version>
+            </dependency>
+            <!-- Logback End -->
+
+            <!-- Lombok Begin -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${org.projectlombok.lombok.version}</version>
+            </dependency>
+            <!-- Lombok End -->
+
+            <!-- Apache commons Jar Begin -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${apache.commons.lang3.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${apache.commons.io.version}</version>
+            </dependency>
+            <!-- Apache commons Jar End -->
+
+            <!-- JDBC Begin -->
+            <!-- MySQL Begin -->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.connector.java.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis.spring.boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter-test</artifactId>
+                <version>${mybatis.spring.boot.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <!-- MySQL End -->
+
+            <!-- PostgreSQL Begin -->
+            <dependency>
+                <groupId>org.postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>${org.postgresql.version}</version>
+            </dependency>
+            <!-- PostgreSQL End -->
+            <!-- JDBC End -->
+
+            <!-- Alibaba Druid Begin -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${com.alibaba.druid.version}</version>
+            </dependency>
+            <!-- Alibaba Druid End -->
+
+
+        </dependencies>
+    </dependencyManagement>
+
+    <!-- Package as an executable jar -->
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>2.5.2</version>
+                </plugin>
+
+                <!--配置生成Javadoc包 -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>2.10.4</version>
+                    <configuration>
+                        <encoding>UTF-8</encoding>
+                        <aggregate>true</aggregate>
+                        <charset>UTF-8</charset>
+                        <docencoding>UTF-8</docencoding>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>attach-javadocs</id>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                            <configuration>
+                                <additionalparam>-Xdoclint:none</additionalparam>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <!-- 配置文件变量替换 -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <executions>
+                        <execution>
+                            <id>default-resources</id>
+                            <phase>validate</phase>
+                            <goals>
+                                <goal>copy-resources</goal>
+                            </goals>
+                            <configuration>
+                                <outputDirectory>target/classes</outputDirectory>
+                                <useDefaultDelimiters>false</useDefaultDelimiters>
+                                <delimiters>
+                                    <delimiter>@</delimiter>
+                                </delimiters>
+                                <resources>
+                                    <resource>
+                                        <directory>src/main/java</directory>
+                                        <includes>
+                                            <include>**/*.xml</include>
+                                        </includes>
+                                        <filtering>true</filtering>
+                                    </resource>
+                                    <resource>
+                                        <directory>src/main/resources/</directory>
+                                        <filtering>true</filtering>
+                                        <includes>
+                                            <include>**/*.properties</include>
+                                            <include>**/*.xml</include>
+                                            <include>**/*.yml</include>
+                                            <include>**/*.yaml</include>
+                                            <include>**/*.factories</include>
+                                        </includes>
+                                    </resource>
+                                </resources>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <!-- sonarQube 插件 -->
+                <plugin>
+                    <groupId>org.sonarsource.scanner.maven</groupId>
+                    <artifactId>sonar-maven-plugin</artifactId>
+                    <version>3.7.0.1746</version>
+                </plugin>
+
+            </plugins>
+        </pluginManagement>
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>**/*.xml</include>
+                    <include>**/*.properties</include>
+                    <include>**/*.yml</include>
+                    <include>**/*.yaml</include>
+                    <include>**/*.factories</include>
+                </includes>
+            </resource>
+        </resources>
+        <testResources>
+            <testResource>
+                <directory>${basedir}/src/test/resources</directory>
+            </testResource>
+        </testResources>
+
+        <plugins>
+            <!--配置生成Javadoc包 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.10.4</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                    <aggregate>true</aggregate>
+                    <charset>UTF-8</charset>
+                    <docencoding>UTF-8</docencoding>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                        <configuration>
+                            <additionalparam>-Xdoclint:none</additionalparam>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!--配置生成源码包 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.0.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <!--项目创建年份，4位数字。当产生版权信息时需要使用这个值。 -->
+    <inceptionYear/>
+    <!--项目开发者列表 -->
+    <developers>
+        <developer><!--某个项目开发者的信息 -->
+            <id>Lei</id><!--SCM里项目开发者的唯一标识符 -->
+            <name>a.lei</name><!--项目开发者的全名 -->
+            <email>fansty_like@hotmail.com</email><!--项目开发者的email -->
+            <url/><!--项目开发者的主页的URL -->
+            <roles><!--项目开发者在项目中扮演的角色，角色元素描述了各种角色 -->
+                <role>Architect</role>
+            </roles>
+            <organization>cloudland</organization><!--项目开发者所属组织 -->
+            <organizationUrl>http://</organizationUrl><!--项目开发者所属组织的URL -->
+            <properties><!--项目开发者属性，如即时消息如何处理等 -->
+                <dept>No</dept>
+            </properties>
+            <timezone>+8</timezone><!--项目开发者所在时区， -11到12范围内的整数。 -->
+        </developer>
+    </developers>
+
+    <!--描述项目所属组织的各种属性。Maven产生的文档用 -->
+    <organization>
+        <name>cloudland</name><!--组织的全名 -->
+        <url>http://cloudland.github.io</url><!--组织主页的URL -->
+    </organization>
+
+    <modules>
+        <module>seata-micro-a-server</module>
+        <module>seata-micro-b-server</module>
+        <module>seata-micro-server-client</module>
+
+        <module>seata-server</module>
+    </modules>
+
+</project>

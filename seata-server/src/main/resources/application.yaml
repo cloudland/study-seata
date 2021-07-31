@@ -1,0 +1,45 @@
+# ====== 服务配置 ======
+server:
+  port: 8060
+  tomcat:
+    uri-encoding: UTF-8
+  servlet:
+    # 访问路径
+    context-path: /seata-server
+    # 字符编码
+    encoding:
+      force: true
+      charset: UTF-8
+      enabled: true
+
+
+# ====== 日志配置 ======
+logging:
+  level:
+    root: INFO
+    # 指定包日志级别
+    com.netflix: DEBUG
+    # Spring 日志
+    org.springframework.web: TRACE
+    # 当前服务日志级别
+    org.cloudland.study.seata: DEBUG
+
+  file:
+    name: logs/seata-server.log
+
+# ====== 注册中心&配置中心 ======
+spring:
+  application:
+    name: seata-server
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    nacos:
+      # 服务注册
+      discovery:
+        # 服務地址
+        server-addr: @nacos.server.addr@
+        # 配置命名空间，根据命名空间ID，加载不同namespace的配置
+        namespace: @nacos.server.namespace@
+        # 配置分组
+        group: @nacos.server.group@

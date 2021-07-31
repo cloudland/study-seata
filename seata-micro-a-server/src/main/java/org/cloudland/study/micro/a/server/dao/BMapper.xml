@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.cloudland.study.micro.a.server.dao.BMapper">
+
+    <!-- 对象属性与表映射关系 -->
+    <resultMap id="BEntityMapping" type="Micro.Study.BEntity">
+        <id column="TEST_ID" property="id"/>
+        <result column="TEST_TITLE" property="title"/>
+        <result column="TEST_CONTENT" property="content"/>
+    </resultMap>
+
+    <!--可重用的SQL代码段 -->
+    <sql id="columns">TEST_ID, TEST_TITLE, TEST_CONTENT</sql>
+
+    <insert id="add" parameterType="Micro.Study.BEntity">
+        INSERT INTO B_TEST(<include refid="columns"/>)
+        VALUES(
+        #{id},
+        #{title},
+        #{content}
+        )
+    </insert>
+
+    <update id="update" parameterType="Micro.Study.BEntity">
+        UPDATE B_TEST
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="title != null">
+                TEST_TITLE = #{title},
+            </if>
+            <if test="content != null">
+                TEST_CONTENT = #{content},
+            </if>
+        </trim>
+        WHERE TEST_ID = #{id}
+    </update>
+
+    <delete id="delete" parameterType="Micro.Study.BEntity">
+        DELETE FROM B_TEST WHERE TEST_ID = #{id}
+    </delete>
+
+    <!-- select -->
+    <select id="find" resultMap="BEntityMapping" parameterType="java.lang.String">
+        SELECT <include refid="columns"/> FROM B_TEST WHERE TEST_ID = #{id}
+    </select>
+
+</mapper>
