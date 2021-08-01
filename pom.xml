@@ -198,6 +198,13 @@
             </dependency>
             <!-- Alibaba Druid End -->
 
+            <!-- Alibaba Seata Begin -->
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-starter-alibaba-seata</artifactId>
+                <version>2.2.6.RELEASE</version>
+            </dependency>
+            <!-- Alibaba Seata End -->
 
         </dependencies>
     </dependencyManagement>

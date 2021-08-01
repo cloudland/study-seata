@@ -1,5 +1,8 @@
 package org.cloudland.study.seata.server.service;
 
+import io.seata.core.context.RootContext;
+import io.seata.spring.annotation.GlobalLock;
+import io.seata.spring.annotation.GlobalTransactional;
 import org.cloudland.study.remote.micro.Result;
 import org.cloudland.study.seata.server.service.dto.SeataTransactionDo;
 import org.springframework.stereotype.Service;
@@ -32,7 +35,10 @@ public class SeataMyBatisService extends AbstractParentService {
      *
      * @param seataDo
      */
+    @GlobalLock
+    @GlobalTransactional(rollbackFor = {Exception.class, RuntimeException.class}, timeoutMills = 300000)
     public void doTransaction(SeataTransactionDo seataDo) {
+        getLogger().info("开始全局事务，XID = " + RootContext.getXID());
 
         // 调用微服务(A)
         org.cloudland.study.remote.micro.a.to.TransactionTestTo a = new org.cloudland.study.remote.micro.a.to.TransactionTestTo(seataDo.getId(), seataDo.getTitle(), seataDo.getContent());

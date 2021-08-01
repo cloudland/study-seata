@@ -1,5 +1,6 @@
 package org.cloudland.study.micro.b.server.control;
 
+import io.seata.spring.annotation.GlobalTransactional;
 import org.cloudland.study.micro.b.server.control.vo.TransactionTestEditVo;
 import org.cloudland.study.micro.b.server.service.MyBatisService;
 import org.cloudland.study.micro.b.server.service.dto.TransactionTestDo;
@@ -35,7 +36,7 @@ public class MyBatisEditControl extends AbstractParentControl {
      */
     @PostMapping(value = "/data")
     public JsonResult<String> create(HttpServletRequest request, HttpServletResponse response, @RequestBody TransactionTestEditVo editVo) {
-        getLogger().info("[微服务(A)][新增]新增数据");
+        getLogger().info("[微服务(B)][新增]新增数据");
 
         return doSuccess(service.create(new TransactionTestDo(editVo.getId(), editVo.getTitle(), editVo.getContent())));
     }
@@ -50,7 +51,7 @@ public class MyBatisEditControl extends AbstractParentControl {
      */
     @PutMapping(value = "/data")
     public JsonResult<String> update(HttpServletRequest request, HttpServletResponse response, @RequestBody TransactionTestEditVo editVo) {
-        getLogger().info("[微服务(A)][更新]新增数据");
+        getLogger().info("[微服务(B)][更新]新增数据");
 
         return doSuccess(service.update(new TransactionTestDo(editVo.getId(), editVo.getTitle(), editVo.getContent())));
     }
@@ -65,7 +66,7 @@ public class MyBatisEditControl extends AbstractParentControl {
      */
     @DeleteMapping(value = "{id}")
     public JsonResult<Void> remove(HttpServletRequest request, HttpServletResponse response, @PathVariable("id") String id) {
-        getLogger().info("[微服务(A)][删除]新增数据");
+        getLogger().info("[微服务(B)][删除]新增数据");
 
         service.remove(id);
         return doSuccess(null);
@@ -81,7 +82,7 @@ public class MyBatisEditControl extends AbstractParentControl {
      */
     @GetMapping(value = "{id}")
     public JsonResult<Void> find(HttpServletRequest request, HttpServletResponse response, @PathVariable("id") String id) {
-        getLogger().info("[微服务(A)][查询]新增数据");
+        getLogger().info("[微服务(B)][查询]新增数据");
 
         service.find(id);
         return doSuccess(null);
@@ -95,9 +96,10 @@ public class MyBatisEditControl extends AbstractParentControl {
      * @param editVo
      * @return
      */
+    @GlobalTransactional
     @PostMapping(value = "/transaction")
     public JsonResult<Void> doTransaction(HttpServletRequest request, HttpServletResponse response, @RequestBody TransactionTestEditVo editVo) {
-        getLogger().info("[微服务(A)][事务]新增数据");
+        getLogger().info("[微服务(B)][事务]新增数据");
 
         service.doTransaction(new TransactionTestDo(editVo.getId(), editVo.getTitle(), editVo.getContent()));
         return doSuccess(null);

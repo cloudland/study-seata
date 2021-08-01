@@ -1,5 +1,6 @@
 package org.cloudland.study.micro.a.server.control;
 
+import io.seata.spring.annotation.GlobalTransactional;
 import org.cloudland.study.micro.a.server.control.vo.TransactionTestEditVo;
 import org.cloudland.study.micro.a.server.service.MyBatisService;
 import org.cloudland.study.micro.a.server.service.dto.TransactionTestDo;

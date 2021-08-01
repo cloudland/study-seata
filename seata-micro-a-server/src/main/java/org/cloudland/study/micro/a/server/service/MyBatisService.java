@@ -1,5 +1,6 @@
 package org.cloudland.study.micro.a.server.service;
 
+import io.seata.core.context.RootContext;
 import org.cloudland.study.micro.a.server.dao.AEntity;
 import org.cloudland.study.micro.a.server.dao.AMapper;
 import org.cloudland.study.micro.a.server.dao.BEntity;
@@ -82,15 +83,7 @@ public class MyBatisService extends AbstractParentService {
         aMapper.add(newAEntity);
 
         BEntity newBEntity = new BEntity(editDo.getId(), editDo.getTitle(), editDo.getContent());
-        if (0 <= newBEntity.getId().indexOf("3")) {
-            throw new RuntimeException("B操作前, 回滚事务");
-        }
         bMapper.add(newBEntity);
-
-        if (0 <= newBEntity.getId().indexOf("6")) {
-            throw new RuntimeException("B操作后, 回滚事务");
-        }
-
     }
 
 }
