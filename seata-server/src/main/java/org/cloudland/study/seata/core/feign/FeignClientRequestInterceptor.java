@@ -42,11 +42,11 @@ public class FeignClientRequestInterceptor implements RequestInterceptor {
     public void apply(RequestTemplate template) {
 
         // Seata 分布式事务
-        String xid = RootContext.getXID();
-        if (StringUtils.isNotBlank(xid)) {
-            getLogger().info("[Supervise][Feign]设置传递分布式事务XID：{}", xid);
-            template.header(RootContext.KEY_XID, xid);
-        }
+//        String xid = RootContext.getXID();
+//        if (StringUtils.isNotBlank(xid)) {
+//            getLogger().info("[Supervise][Feign]设置传递分布式事务XID：{}", xid);
+//            template.header(RootContext.KEY_XID, xid);
+//        }
 
         // 获取当前请求头
         ServletRequestAttributes webServletAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
