@@ -51,9 +51,9 @@ spring:
 ##设置feign 客户端超时时间（openFeign默认支持ribbon）
 ribbon:
   #指的是建立连接所用的时间，适用于网络状况正常的情况下，两端连接所用的时间
-  ReadTimeout: 5000
+  ReadTimeout: 60000
   #指的是建立连接后从服务器读取到可用资源所用的时间
-  ConnectTimeout: 5000
+  ConnectTimeout: 60000
 
 
 seata:
@@ -88,7 +88,7 @@ seata:
     # 降级开关
     enable-degrade: false
     # 禁用全局事务（默认false）
-    disable-global-transaction: true
+    disable-global-transaction: false
     grouplist:
       default: 127.0.0.1:8091
   transport:
