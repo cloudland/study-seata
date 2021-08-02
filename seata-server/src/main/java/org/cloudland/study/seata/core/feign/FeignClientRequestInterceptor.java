@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
  * <br>
  * 用于对所有请求安全监管(深圳宝安dove/em)的 Feign 添加头 Authorization
  *
- * @author zhuzhonglei@gsafety.com
+ * @author lei
  * @date 2021/7/16 15:39
  */
 @Configuration(proxyBeanMethods = false)
@@ -42,11 +42,11 @@ public class FeignClientRequestInterceptor implements RequestInterceptor {
     public void apply(RequestTemplate template) {
 
         // Seata 分布式事务
-        String xid = RootContext.getXID();
-        if (StringUtils.isNotBlank(xid)) {
-            getLogger().info("[Supervise][Feign]设置传递分布式事务XID：{}", xid);
-            template.header(RootContext.KEY_XID, xid);
-        }
+//        String xid = RootContext.getXID();
+//        if (StringUtils.isNotBlank(xid)) {
+//            getLogger().info("[Supervise][Feign]设置传递分布式事务XID：{}", xid);
+//            template.header(RootContext.KEY_XID, xid);
+//        }
 
         // 获取当前请求头
         ServletRequestAttributes webServletAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
@@ -58,7 +58,7 @@ public class FeignClientRequestInterceptor implements RequestInterceptor {
         // 获取当前请求
         HttpServletRequest request = webServletAttributes.getRequest();
         // 获取请求头中 token
-        String gsafetyToken = request.getHeader("gsafety-token");
+        String gsafetyToken = request.getHeader("token");
 
         // 深圳宝安微服务
         template.header(HttpHeaders.AUTHORIZATION, gsafetyToken);

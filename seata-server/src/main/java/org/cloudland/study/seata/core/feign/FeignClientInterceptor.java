@@ -13,7 +13,7 @@ import org.springframework.web.context.request.RequestContextHolder;
  * <br>
  * 针对所有 Feign 方式请求进行拦截，做一些预设处理操作
  *
- * @author zhuzhonglei@gsafety.com
+ * @author lei
  * @date 2021/7/3 16:16
  */
 @Aspect
