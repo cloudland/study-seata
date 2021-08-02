@@ -59,8 +59,7 @@ public class FeignClientRequestInterceptor implements RequestInterceptor {
         HttpServletRequest request = webServletAttributes.getRequest();
         // 获取请求头中 token
         String gsafetyToken = request.getHeader("token");
-
-        // 深圳宝安微服务
+        // 设置微服务头信息
         template.header(HttpHeaders.AUTHORIZATION, gsafetyToken);
     }
 
